@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: 'Image to Base64 Converter — Free & Instant',
     description: 'Convert images to Base64 instantly. 100% private, works offline. No uploads needed.',
     type: 'website',
-    url: 'https://image-to-base64-converter.vercel.app',
+    url: 'https://img64.dev',
     siteName: 'Image to Base64',
   },
   twitter: {
@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="canonical" href="https://image-to-base64-converter.vercel.app" />
+        <link rel="canonical" href="https://img64.dev" />
       </head>
       <body>{children}</body>
     </html>
