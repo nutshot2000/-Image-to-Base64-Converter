@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback, useRef, useEffect } from 'react'
+import imageCompression from 'browser-image-compression'
 
 interface ImageResult {
   id: string
@@ -8,9 +9,11 @@ interface ImageResult {
   base64: string
   fileName: string
   fileSize: number
+  originalFileSize: number
   mimeType: string
   width: number
   height: number
+  compressed: boolean
 }
 
 export default function Home() {
@@ -21,6 +24,8 @@ export default function Home() {
   const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const [darkMode, setDarkMode] = useState(false)
+  const [compressImages, setCompressImages] = useState(true)
+  const [compressionQuality, setCompressionQuality] = useState(80)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Check for dark mode preference
@@ -41,7 +46,28 @@ export default function Home() {
 
   const generateId = () => Math.random().toString(36).substring(2, 9)
 
-  const handleFiles = useCallback((files: FileList | File[]) => {
+  const compressFile = async (file: File): Promise<File> => {
+    if (!compressImages) return file
+    
+    // Skip SVG and GIF (compression doesn't work well)
+    if (file.type === 'image/svg+xml' || file.type === 'image/gif') return file
+    
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 4096,
+      useWebWorker: true,
+      initialQuality: compressionQuality / 100,
+    }
+    
+    try {
+      const compressedFile = await imageCompression(file, options)
+      return compressedFile
+    } catch {
+      return file
+    }
+  }
+
+  const handleFiles = useCallback(async (files: FileList | File[]) => {
     const fileArray = Array.from(files).filter(f => f.type.startsWith('image/'))
     
     if (fileArray.length === 0) {
@@ -49,7 +75,10 @@ export default function Home() {
       return
     }
 
-    fileArray.forEach(file => {
+    for (const file of fileArray) {
+      const originalSize = file.size
+      const processedFile = await compressFile(file)
+      
       const reader = new FileReader()
       reader.onload = (e) => {
         const dataUri = e.target?.result as string
@@ -58,26 +87,30 @@ export default function Home() {
         // Get image dimensions
         const img = new Image()
         img.onload = () => {
+          const wasCompressed = processedFile.size < originalSize
           const newResult: ImageResult = {
             id: generateId(),
             dataUri,
             base64,
             fileName: file.name,
-            fileSize: file.size,
-            mimeType: file.type,
+            fileSize: processedFile.size,
+            originalFileSize: originalSize,
+            mimeType: processedFile.type || file.type,
             width: img.width,
-            height: img.height
+            height: img.height,
+            compressed: wasCompressed,
           }
           setResults(prev => [newResult, ...prev])
           setSelectedId(newResult.id)
         }
         img.src = dataUri
       }
-      reader.readAsDataURL(file)
-    })
+      reader.readAsDataURL(processedFile)
+    }
 
-    showToastMessage(`${fileArray.length} image${fileArray.length > 1 ? 's' : ''} converted`)
-  }, [])
+    const savedMsg = compressImages ? ' (optimized)' : ''
+    showToastMessage(`${fileArray.length} image${fileArray.length > 1 ? 's' : ''} converted${savedMsg}`)
+  }, [compressImages, compressionQuality])
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault()
@@ -259,6 +292,38 @@ export default function Home() {
           />
         </div>
 
+        {/* Compression Settings */}
+        <div className={`mt-4 p-4 rounded-xl ${darkMode ? 'bg-slate-800' : 'bg-slate-50'}`}>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={compressImages}
+                onChange={(e) => setCompressImages(e.target.checked)}
+                className="w-5 h-5 rounded border-slate-300 dark:border-slate-600 text-blue-500 focus:ring-blue-500"
+              />
+              <span className={textClass}>
+                <span className="font-medium">Auto-compress</span>
+                <span className={`block text-xs ${textMutedClass}`}>Reduce file size while converting</span>
+              </span>
+            </label>
+            {compressImages && (
+              <div className="flex items-center gap-3">
+                <span className={`text-sm ${textMutedClass}`}>Quality:</span>
+                <input
+                  type="range"
+                  min="50"
+                  max="100"
+                  value={compressionQuality}
+                  onChange={(e) => setCompressionQuality(Number(e.target.value))}
+                  className="w-24 accent-blue-500"
+                />
+                <span className={`text-sm font-mono ${textClass} w-10`}>{compressionQuality}%</span>
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Results */}
         {results.length > 0 && (
           <div className="mt-8 fade-in">
@@ -331,6 +396,11 @@ export default function Home() {
                       <p className={`font-medium truncate ${textClass}`}>{result.fileName}</p>
                       <p className={`text-sm ${textMutedClass}`}>
                         {result.width} × {result.height} • {formatBytes(result.fileSize)}
+                        {result.compressed && result.originalFileSize > result.fileSize && (
+                          <span className="ml-2 text-green-500 font-medium">
+                            ↓{Math.round((1 - result.fileSize / result.originalFileSize) * 100)}%
+                          </span>
+                        )}
                       </p>
                       <p className={`text-xs ${textMutedClass}`}>
                         {formatBytes(result.base64.length)} Base64
@@ -393,11 +463,12 @@ export default function Home() {
         )}
 
         {/* Features */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-5 gap-4">
           {[
             { icon: '🔒', title: '100% Private', desc: 'No uploads, all local' },
             { icon: '⚡', title: 'Instant', desc: 'Zero latency conversion' },
             { icon: '📱', title: 'Works Offline', desc: 'No server needed' },
+            { icon: '🎯', title: 'Auto-Optimize', desc: 'Smart compression built-in' },
             { icon: '🎨', title: 'Multiple Formats', desc: 'Data URI, CSS, HTML, JSON' },
           ].map((f, i) => (
             <div key={i} className={`rounded-xl p-5 text-center ${cardClass}`}>
