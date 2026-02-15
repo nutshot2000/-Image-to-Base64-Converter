@@ -29,10 +29,37 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Image to Base64 Converter',
+    description: 'Convert images to Base64 instantly. 100% private, works offline. Free online Base64 image encoder.',
+    url: 'https://img64.dev',
+    applicationCategory: 'UtilityApplication',
+    operatingSystem: 'Any',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    featureList: [
+      'Convert images to Base64',
+      'Drag and drop support',
+      'Paste from clipboard',
+      'Multiple output formats',
+      'Works offline',
+      'No server upload',
+    ],
+  }
+
   return (
     <html lang="en">
       <head>
         <link rel="canonical" href="https://img64.dev" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body>{children}</body>
     </html>
