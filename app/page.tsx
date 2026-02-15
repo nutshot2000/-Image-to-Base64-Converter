@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 
 export default function Home() {
   const [isDragging, setIsDragging] = useState(false)
@@ -85,10 +85,10 @@ export default function Home() {
   }, [handleFile])
 
   // Paste event listener
-  useState(() => {
+  useEffect(() => {
     document.addEventListener('paste', handlePaste)
     return () => document.removeEventListener('paste', handlePaste)
-  })
+  }, [handlePaste])
 
   const copyToClipboard = async (text: string, message: string) => {
     await navigator.clipboard.writeText(text)
