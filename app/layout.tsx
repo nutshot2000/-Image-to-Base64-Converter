@@ -3,8 +3,8 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Image to Base64 Converter — Free & Instant | No Upload',
-  description: 'Convert images to Base64 instantly. Drag, drop, or paste. 100% private — no uploads, works offline. Free online Base64 image encoder for developers.',
-  keywords: 'image to base64, base64 encoder, image encoder, convert image to base64, base64 image, data uri, base64 converter, image to data uri, online base64 tool',
+  description: 'Convert images to Base64 instantly. Drag, drop, or paste. 100% private — no uploads, works offline. Free online Base64 image encoder with auto-compression.',
+  keywords: 'image to base64, base64 encoder, image encoder, convert image to base64, base64 image, data uri, base64 converter, image to data uri, online base64 tool, base64 image converter, png to base64, jpg to base64, image to data url, base64 string generator, encode image to base64, base64 image optimizer, compress image to base64, image compression tool, online image encoder, free base64 converter, webp to base64, gif to base64, svg to base64, base64 generator, image to code, image encoder online, client-side image converter',
   authors: [{ name: 'Image to Base64' }],
   openGraph: {
     title: 'Image to Base64 Converter — Free & Instant',
@@ -33,7 +33,7 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'Image to Base64 Converter',
-    description: 'Convert images to Base64 instantly. 100% private, works offline. Free online Base64 image encoder.',
+    description: 'Convert images to Base64 instantly with auto-compression. 100% private, works offline. Free online Base64 image encoder.',
     url: 'https://img64.dev',
     applicationCategory: 'UtilityApplication',
     operatingSystem: 'Any',
@@ -44,11 +44,15 @@ export default function RootLayout({
     },
     featureList: [
       'Convert images to Base64',
+      'Auto-compress images',
       'Drag and drop support',
       'Paste from clipboard',
       'Multiple output formats',
       'Works offline',
       'No server upload',
+      'Data URI generator',
+      'CSS background image encoder',
+      'HTML img tag generator',
     ],
   }
 
