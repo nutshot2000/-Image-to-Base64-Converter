@@ -454,6 +454,13 @@ export default function Home() {
             View on GitHub →
           </a>
         </p>
+        <nav className="mt-4 flex flex-wrap justify-center gap-4">
+          <a href="/about" className="hover:text-blue-500 transition-colors">About</a>
+          <a href="/contact" className="hover:text-blue-500 transition-colors">Contact</a>
+          <a href="/privacy" className="hover:text-blue-500 transition-colors">Privacy Policy</a>
+          <a href="/terms" className="hover:text-blue-500 transition-colors">Terms of Service</a>
+        </nav>
+        <p className="mt-4 text-xs opacity-75">© 2026 img64.dev. All rights reserved.</p>
       </footer>
 
       {/* Toast */}
