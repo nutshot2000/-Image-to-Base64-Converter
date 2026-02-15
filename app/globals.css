@@ -2,38 +2,87 @@
 @tailwind components;
 @tailwind utilities;
 
-.drop-zone {
-  transition: all 0.2s ease;
+* {
+  box-sizing: border-box;
 }
 
-.drop-zone.dragging {
-  border-color: #3b82f6;
-  background-color: #eff6ff;
-  transform: scale(1.01);
+html {
+  scroll-behavior: smooth;
 }
 
-.copy-btn:active {
-  transform: scale(0.98);
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Animations */
 .fade-in {
   animation: fadeIn 0.3s ease;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
 }
 
-.toast {
-  animation: slideUp 0.3s ease, fadeOut 0.3s ease 2.5s forwards;
+/* Better focus states */
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
 }
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Smooth transitions */
+button,
+a,
+input,
+[role="button"] {
+  transition: all 0.15s ease;
 }
 
-@keyframes fadeOut {
-  to { opacity: 0; }
+/* Drop zone pulse animation */
+@keyframes pulse-border {
+  0%, 100% {
+    border-color: #3b82f6;
+  }
+  50% {
+    border-color: #8b5cf6;
+  }
+}
+
+.drop-zone-active {
+  animation: pulse-border 1s ease-in-out infinite;
 }
