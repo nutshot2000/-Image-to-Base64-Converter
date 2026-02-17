@@ -9,9 +9,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Image to Base64 Converter — Free & Instant',
     description: 'Convert images to Base64 instantly. 100% private, works offline. No uploads needed.',
-    type: 'website',
     url: 'https://img64.dev',
     siteName: 'Image to Base64',
+    images: [{
+      url: 'https://img64.dev/og-image.png',
+      width: 1200,
+      height: 630,
+      alt: 'Image to Base64 Converter'
+    }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -59,7 +64,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#3b82f6" />
         <link rel="canonical" href="https://img64.dev" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
