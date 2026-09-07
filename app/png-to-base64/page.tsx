@@ -1,11 +1,9 @@
 import Home from '../page'
-import type { Metadata } from 'next'
+import { formatMetadata, getFormatPage } from '@/lib/format-pages'
 
-export const metadata: Metadata = {
-  title: 'Convert PNG to Base64 — Free & Instant Online Encoder',
-  description: 'Easily convert PNG images to Base64 string formats. 100% private, works offline. Drag, drop, or paste to encode PNG to Data URI.',
-}
+const format = getFormatPage('png')
+export const metadata = formatMetadata(format)
 
 export default function Page() {
-  return <Home />
+  return <Home format={format} />
 }

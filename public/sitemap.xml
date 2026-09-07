@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://img64.dev</loc>
+    <loc>https://www.img64.dev/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://img64.dev/about</loc>
+    <loc>https://www.img64.dev/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://img64.dev/contact</loc>
+    <loc>https://www.img64.dev/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://img64.dev/privacy</loc>
+    <loc>https://www.img64.dev/privacy</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://img64.dev/terms</loc>
+    <loc>https://www.img64.dev/terms</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://img64.dev/png-to-base64</loc>
+    <loc>https://www.img64.dev/png-to-base64</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://img64.dev/jpg-to-base64</loc>
+    <loc>https://www.img64.dev/jpg-to-base64</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://img64.dev/webp-to-base64</loc>
+    <loc>https://www.img64.dev/webp-to-base64</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://img64.dev/svg-to-base64</loc>
+    <loc>https://www.img64.dev/svg-to-base64</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://img64.dev/gif-to-base64</loc>
+    <loc>https://www.img64.dev/gif-to-base64</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

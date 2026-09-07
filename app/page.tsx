@@ -18,6 +18,8 @@ async function fireConfetti() {
   setTimeout(() => confetti({ colors: ['#8b5cf6', '#22d3ee'], particleCount: 50, spread: 100, origin: { y: 0.7 } }), 300)
 }
 
+import type { FormatPage } from '@/lib/format-pages'
+
 interface ImageResult {
   id: string
   dataUri: string
@@ -35,7 +37,7 @@ interface ImageResult {
 const HISTORY_KEY = 'img64_history'
 const MAX_HISTORY = 20
 
-export default function Home() {
+export default function Home({ format }: { format?: FormatPage }) {
   const { data: session, status } = useSession()
   const [isDragging, setIsDragging] = useState(false)
   const [results, setResults] = useState<ImageResult[]>([])
@@ -620,7 +622,7 @@ export default function Home() {
             <p className="text-sm text-slate-400 mb-5">Help other developers discover it</p>
             <div className="flex justify-center gap-3">
               <a
-                href={shareTwitter('https://img64.dev/?v=1', 'Convert images to Base64 instantly & for free. No upload needed! 🚀')}
+                href={shareTwitter('https://www.img64.dev/?v=1', 'Convert images to Base64 instantly & for free. No upload needed! 🚀')}
                 target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1DA1F2]/10 border border-[#1DA1F2]/20 text-[#1DA1F2] text-sm font-medium hover:bg-[#1DA1F2]/20 transition-all hover:-translate-y-0.5"
               >
@@ -628,7 +630,7 @@ export default function Home() {
                 Share on X
               </a>
               <a
-                href={shareReddit('https://img64.dev/?v=1', 'Free Image to Base64 Converter - Instant, Local & No Uploads')}
+                href={shareReddit('https://www.img64.dev/?v=1', 'Free Image to Base64 Converter - Instant, Local & No Uploads')}
                 target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FF4500]/10 border border-[#FF4500]/20 text-[#FF4500] text-sm font-medium hover:bg-[#FF4500]/20 transition-all hover:-translate-y-0.5"
               >
@@ -668,6 +670,22 @@ export default function Home() {
               </section>
             </div>
           </article>
+          {format && (
+            <article className="mt-6 glass rounded-2xl p-8">
+              <h2 className="text-2xl font-bold text-white mb-4">{format.heading}</h2>
+              <p className="text-sm text-slate-400 leading-relaxed mb-5">{format.intro}</p>
+              <div className="grid gap-4 md:grid-cols-2">
+                <section>
+                  <h3 className="text-base font-semibold gradient-text-subtle mb-2">When to use {format.label} Base64</h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">{format.useCase}</p>
+                </section>
+                <section>
+                  <h3 className="text-base font-semibold gradient-text-subtle mb-2">Privacy-first conversion</h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">{format.privacyNote}</p>
+                </section>
+              </div>
+            </article>
+          )}
         </main>
 
         {/* ── Footer ───────────────────────────────────────────── */}

@@ -3,7 +3,7 @@ import { AuthProvider } from '@/components/AuthProvider'
 import './globals.css'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://img64.dev'),
+  metadataBase: new URL('https://www.img64.dev'),
   title: 'Image to Base64 Converter — Free & Instant | No Upload',
   description: 'Convert images to Base64 instantly. Drag, drop, or paste. 100% private — no uploads, works offline. Free online Base64 image encoder with auto-compression.',
   keywords: 'image to base64, base64 encoder, image encoder, convert image to base64, base64 image, data uri, base64 converter, image to data uri, online base64 tool, base64 image converter, png to base64, jpg to base64, image to data url, base64 string generator, encode image to base64, base64 image optimizer, compress image to base64, image compression tool, online image encoder, free base64 converter, webp to base64, gif to base64, svg to base64, base64 generator, image to code, image encoder online, client-side image converter',
@@ -11,10 +11,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Image to Base64 Converter — Free & Instant',
     description: 'Convert images to Base64 instantly. 100% private, works offline. No uploads needed.',
-    url: 'https://img64.dev',
+    url: 'https://www.img64.dev',
     siteName: 'Image to Base64',
     images: [{
-      url: 'https://img64.dev/og-image.png',
+      url: 'https://www.img64.dev/og-image.png',
       width: 1200,
       height: 630,
       alt: 'Image to Base64 Converter'
@@ -24,11 +24,14 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Image to Base64 Converter — Free & Instant',
     description: 'Convert images to Base64 instantly. 100% private, works offline.',
-    images: ['https://img64.dev/og-image.png'],
+    images: ['https://www.img64.dev/og-image.png'],
   },
   robots: {
     index: true,
     follow: true,
+  },
+  alternates: {
+    canonical: '/',
   },
 }
 
@@ -43,7 +46,7 @@ export default function RootLayout({
       '@type': 'WebApplication',
       name: 'Image to Base64 Converter',
       description: 'Convert images to Base64 instantly with auto-compression. 100% private, works offline. Free online Base64 image encoder.',
-      url: 'https://img64.dev',
+      url: 'https://www.img64.dev',
       applicationCategory: 'UtilityApplication',
       operatingSystem: 'Any',
       offers: {
@@ -106,7 +109,6 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="img64" />
         <link rel="apple-touch-icon" href="/logo.png" />
-        <link rel="canonical" href="https://img64.dev" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />

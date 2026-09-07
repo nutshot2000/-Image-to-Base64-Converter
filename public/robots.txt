@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://img64.dev/sitemap.xml
+Sitemap: https://www.img64.dev/sitemap.xml

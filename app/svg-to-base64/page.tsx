@@ -1,11 +1,9 @@
 import Home from '../page'
-import type { Metadata } from 'next'
+import { formatMetadata, getFormatPage } from '@/lib/format-pages'
 
-export const metadata: Metadata = {
-  title: 'Convert SVG to Base64 — Free & Instant Online Encoder',
-  description: 'Easily convert SVG images to Base64 string formats. 100% private, works offline. Drag, drop, or paste to encode SVG to Data URI.',
-}
+const format = getFormatPage('svg')
+export const metadata = formatMetadata(format)
 
 export default function Page() {
-  return <Home />
+  return <Home format={format} />
 }
